@@ -167,17 +167,21 @@ void loop() {
 
 void handleAttackerCommand(String cmd) {
   if (cmd == "PING") {
-    Serial.println("{\"status\":\"PONG\",\"role\":\"QATTACK_EVE\",\"fw\":\"" FIRMWARE_VERSION "\",\"attack_led\":" + String(attackLedActive ? "true" : "false") + "}");
+    String out = "{\"status\":\"PONG\",\"role\":\"QATTACK_EVE\",\"fw\":\"" FIRMWARE_VERSION "\"";
+    out += ",\"attack_led\":" + String(attackLedActive ? "true" : "false") + "}";
+    Serial.println(out);
   }
   else if (cmd == "DETECT") {
     // Return currently detected communication channel between the two target ESP32s
-    Serial.println("{\"status\":\"OK\",\"channel_detected\":" + String(channelLocked ? "true" : "false") +
-                   ",\"source_ip\":\"" + sourceIP.toString() + "\"" +
-                   ",\"target_ip\":\"" + targetIP.toString() + "\"" +
-                   ",\"target_port\":" + String(targetPort) +
-                   ",\"optical_port\":" + String(opticalPort) +
-                   ",\"packets_sniffed\":" + String(packetsSniffed) +
-                   ",\"link\":\"Optical Fibre via Ethernet\"}");
+    String out = "{\"status\":\"OK\"";
+    out += ",\"channel_detected\":" + String(channelLocked ? "true" : "false");
+    out += ",\"source_ip\":\"" + sourceIP.toString() + "\"";
+    out += ",\"target_ip\":\"" + targetIP.toString() + "\"";
+    out += ",\"target_port\":" + String(targetPort);
+    out += ",\"optical_port\":" + String(opticalPort);
+    out += ",\"packets_sniffed\":" + String(packetsSniffed);
+    out += ",\"link\":\"Optical Fibre via Ethernet\"}";
+    Serial.println(out);
   }
   else if (cmd.startsWith("ATTACK")) {
     // Execute one of the 3 attack modes: ATTACK <FORGERY|IMPERSONATION|QUANTUM> [param]
@@ -323,19 +327,20 @@ void handleAttackerCommand(String cmd) {
     }
   }
   else if (cmd == "STATUS") {
-    Serial.println("{\"status\":\"ONLINE\",\"role\":\"QATTACK_EVE\",\"firmware\":\"" FIRMWARE_VERSION "\"" +
-                   ",\"ip\":\"" + WiFi.localIP().toString() + "\"" +
-                   ",\"source_ip\":\"" + sourceIP.toString() + "\"" +
-                   ",\"target_ip\":\"" + targetIP.toString() + "\"" +
-                   ",\"target_port\":" + String(targetPort) +
-                   ",\"optical_port\":" + String(opticalPort) +
-                   ",\"packets_injected\":" + String(packetsInjected) +
-                   ",\"packets_sniffed\":" + String(packetsSniffed) +
-                   ",\"forgery_attacks\":" + String(forgeryAttacks) +
-                   ",\"impersonation_attacks\":" + String(impersonationAttacks) +
-                   ",\"quantum_attacks\":" + String(quantumAttacks) +
-                   ",\"trng_bytes\":" + String(trngBytesGenerated) +
-                   ",\"alarm\":" + String(attackLedActive ? "true" : "false") + "}");
+    String out = "{\"status\":\"ONLINE\",\"role\":\"QATTACK_EVE\",\"firmware\":\"" FIRMWARE_VERSION "\"";
+    out += ",\"ip\":\"" + WiFi.localIP().toString() + "\"";
+    out += ",\"source_ip\":\"" + sourceIP.toString() + "\"";
+    out += ",\"target_ip\":\"" + targetIP.toString() + "\"";
+    out += ",\"target_port\":" + String(targetPort);
+    out += ",\"optical_port\":" + String(opticalPort);
+    out += ",\"packets_injected\":" + String(packetsInjected);
+    out += ",\"packets_sniffed\":" + String(packetsSniffed);
+    out += ",\"forgery_attacks\":" + String(forgeryAttacks);
+    out += ",\"impersonation_attacks\":" + String(impersonationAttacks);
+    out += ",\"quantum_attacks\":" + String(quantumAttacks);
+    out += ",\"trng_bytes\":" + String(trngBytesGenerated);
+    out += ",\"alarm\":" + String(attackLedActive ? "true" : "false") + "}";
+    Serial.println(out);
   }
   else {
     Serial.println("{\"status\":\"ERR\",\"msg\":\"Unknown qattack command\"}");
