@@ -9,7 +9,7 @@ description = "QAttack — QuSec Communication Channel Attacker & Threat Demonst
 readme = "README.md"
 requires-python = ">=3.9"
 authors = [{ name = "QuSec Team" }]
-license = { text = "MIT" }
+license = "MIT"
 keywords = ["quantum", "cybersecurity", "qkd", "attacker", "mitm", "esp32", "claude-code-tui", "qattack"]
 dependencies = [
     "rich>=13.0.0",
